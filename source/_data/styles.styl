@@ -1,0 +1,67 @@
+.theme-toggle-wrap {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--text-color);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .theme-toggle-icon {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+
+  .theme-toggle-sun,
+  .theme-toggle-moon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .theme-toggle-sun {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .theme-toggle-moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+}
+
+// In dark mode, show moon icon instead of sun
+html[data-theme="dark"] .theme-toggle {
+  .theme-toggle-sun {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+
+  .theme-toggle-moon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+.theme-toggle-text {
+  font-size: 12px;
+}

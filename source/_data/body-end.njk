@@ -1,0 +1,73 @@
+<script>
+(function() {
+  var STORAGE_KEY = 'nexmoe_theme';
+  var html = document.documentElement;
+  var toggle = document.getElementById('theme-toggle');
+  var textEl = toggle && toggle.querySelector('.theme-toggle-text');
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {}
+  }
+
+  function getOSPreference() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    html.style.colorScheme = theme;
+    html.setAttribute('data-theme', theme);
+    if (textEl) {
+      textEl.textContent = theme === 'dark' ? '深色' : '浅色';
+    }
+  }
+
+  function isDark() {
+    return html.style.colorScheme === 'dark';
+  }
+
+  function toggleTheme() {
+    var newTheme = isDark() ? 'light' : 'dark';
+    saveTheme(newTheme);
+    applyTheme(newTheme);
+  }
+
+  // Initialize
+  var saved = getSavedTheme();
+  if (saved === 'dark' || saved === 'light') {
+    applyTheme(saved);
+  } else {
+    // No saved preference: follow OS, set label accordingly
+    var osTheme = getOSPreference();
+    html.setAttribute('data-theme', osTheme);
+    if (textEl) {
+      textEl.textContent = osTheme === 'dark' ? '深色' : '浅色';
+    }
+  }
+
+  // Toggle button click
+  if (toggle) {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
+
+  // Listen for OS changes when no manual preference
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener('change', function(e) {
+    if (!getSavedTheme()) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script>
