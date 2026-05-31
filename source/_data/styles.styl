@@ -65,3 +65,51 @@ html[data-theme="dark"] .theme-toggle {
 .theme-toggle-text {
   font-size: 12px;
 }
+
+// ========== Mobile Responsive Styles ==========
+
+// Touch targets: enlarge menu items for mobile (≥44px per Apple HIG)
++mobile() {
+  .menu .menu-item a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+// Touch targets: enlarge sidebar toggle button for mobile
++mobile() {
+  .sidebar-toggle {
+    padding: 14px;
+  }
+}
+
+// Smallest phones: reduce base font size for better readability
++mobile-smallest() {
+  body {
+    font-size: 14px;
+  }
+  .post-body {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+}
+
+// Mobile tables: horizontal scroll instead of overflow
++mobile() {
+  .post-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // Code blocks: smaller font on mobile
+  .post-body figure.highlight,
+  .post-body pre {
+    font-size: 13px;
+  }
+}
